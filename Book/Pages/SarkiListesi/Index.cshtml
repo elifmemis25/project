@@ -1,0 +1,134 @@
+﻿@page
+@model Book.Pages.SarkiListesi.IndexModel
+
+
+
+<br>
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">Sarki Listesi</h2>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="Olustur" class="btn btn-info form-control text-white">Şarkı Oluştur</a>
+    </div>
+
+    <div class="col-3">
+        <a asp-page="GuncelleEkle" class="btn btn-info form-control text-white">Şarkı Oluştur(GuncelleEkle)</a>
+    </div>
+
+    <div class="col-12 border p-3 mt-3">
+        <form method="post">
+            @if (Model.Songs.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+
+                            <label asp-for="Songs.FirstOrDefault().SarkiAd"></label>
+                        </th>
+
+                        <th>
+
+
+                            @*@Html.DisplayNameFor(a => a.Songs.FirstOrDefault().Sarkici)*@
+
+                            <label asp-for="Songs.FirstOrDefault().Sarkici"></label>
+                        </th>
+
+                        <th>
+
+                            <label asp-for="Songs.FirstOrDefault().Album"></label>
+                        </th>
+
+                        <th>İŞLEMLER</th>
+
+
+                    </tr>
+
+
+
+
+
+
+
+
+                    @foreach (var item in Model.Songs)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(a => item.SarkiAd)
+                            </td>
+
+                            <td>
+
+                                @Html.DisplayFor(a => item.Sarkici)
+                            </td>
+
+                            <td>
+
+                                @Html.DisplayFor(a => item.Album)
+                            </td>
+
+                            <td>
+
+
+                                <button asp-page-handler="Sil" asp-route-id="@item.Id"
+                                        onclick="return confirm('İlgili veriyi silmek istediğinize emin misiniz?')"
+                                        class="btn btn-danger btn-sm">
+                                    Sil
+                                </button>
+                                <a asp-page="Duzenle" asp-route-id="@item.Id"
+                                   class="btn btn-success btn-sm text-white">Düzenle</a>
+                            </td>
+                        </tr>
+
+                    }
+
+                </table>
+            }
+            else
+            {
+                <p>Listelenecek kitap bulunamadı...</p>
+            }
+        </form>
+    </div>
+
+    <div>
+        class="col-12" style="text-align:center">
+        <br />
+        <span class="h3 text-info">2. Gösterim Alanı</span>
+        <br />
+        <br />
+    </div>
+
+    <div class="col-12 border p-3">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>
+                        Şarkı Adı
+                    </th>
+                    <th>
+                        Şarkıcı Adı
+                    </th>
+                    <th>
+                        Albüm
+                    </th>
+                    <th>
+                        İşlemler
+                    </th>
+                </tr>
+
+            </thead>
+
+        </table>
+    </div>
+
+</div>
+
+@section Scripts{ 
+<script src="~/js/sarkiListesi.js"></script>
+}
